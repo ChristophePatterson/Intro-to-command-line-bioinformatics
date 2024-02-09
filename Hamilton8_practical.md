@@ -1,29 +1,27 @@
-# Intro-to-command-line-bioinformatics
-A introduction to command line bioinformatics, written by myself and Laura Campbell.
-
-
 # Introduction to supercomputers
 
 ## What is a supercomputer?
 A supercomputer is just a computer that has very high levels of performance. Super computers are becoming increasingly important as the volume of data created, for example by full genome sequencing, increases. 
 
-A typical laptop will have between 4 and 12 cores (maybe 24 if you have a really nice one!). Hamilton 8, Durham's supercomputer, has over 15,000 cores. A core is part of a computer capable of completing a computation/task.
-
-Unfortunately Durham's supercomputer has been closed for maintenance this week! However, we will still be working in the command line in the same way as we do when using the super computer.
-
-## Logging in
-
-We are going to be using a Linux computer in for this practical. To start with you will need to take the following steps.
-1) Turn the computer on below your desk
-2) When prompted use the arrow keys to select the "Boot Linux" option
-3) Select the "Debian GNU" option
-4) Enter in your temporary university username and password
-5)  Select "Accept" to the terms and conditions of using a university computer
-6) To load the command line click on the small black square in the top left-hand side of the screen.
+A typical laptop will have 4 cores. Hamilton 8, Durham's supercomputer, has over 15,000 cores. A core is part of a computer capable of completing a computation/task.
 
 ## Using the command line
-When using the Hamilton 8 supercomputer we access files and programmes using the command line instead of a graphical user interface (GUI) like we have on our Windows PCs and Macs. This is primarily to save computational resources. Thankfully using the command line is easier than it may initially seem - Google is your friend! Here are some useful commands for this practical:
+When using the Hamilton 8 supercomputer we access files and programmes using the command line instead of a graphical user interface (GUI) like we have on our Windows PCs and Macs. This is primarily to save computational resources. Thankfully using the command line is easier than it may initially seem - Google is your friend! 
 
+#### How to log in to Hamilton
+
+To log into Hamilton you need to open the command line on your computer. For windows you can search for this by typing in "Command Prompt" to the search bar. If you have Mac you can type "terminal" into spotlight search.
+
+This should open up a black box with a flashing line cursor, ready for you to type out commands. To log in to Hamilton type out the following  and then press enter. You will need to use your CIS login name instead.
+
+```bash
+ssh USERNAME@ham8.dur.ac.uk
+```
+
+You will then be prompted to enter in your university password. You won't see anything appear as you type (for privacy). When you first login you will be asked to confirm the secruity details  of Hamiton - you can type in "yes". Sometimes you will need to check your Microsoft authentication app before it allows you to login (especially if you are not on campus).
+
+Congrats you are now working on a supercomputer!
+## Basic commands
 The most basic command is to ask the computer to print something. In this case we use the `echo` command followed by the text we want to be printed. Type the following out into the command line and press the enter key.
 
 ```bash
@@ -33,7 +31,7 @@ echo 'Hello world!'
 The echo command lets you set markers in your code, which is helpful for checking where the code failed. For instance you could write `echo 'TASK 1 COMPLETE'`. If the code fails and you don't see 'TASK 1 COMPLETE' printed out on the screen the problem must have occurred prior to that line.
 
 Further commands allow us to extract information from the computer.
-The list command, `ls` , prints out the names of all of the files within a directory (directory is the Linux word for folder.)
+The list command, `ls` , prints out the names of all of the files within a directory. Note that's a lowercase L for *List*, not a number one.
 
 ```bash
 ls
@@ -42,7 +40,6 @@ ls
 This command is useful to check all the correct files are all present, as well as a way to make sure you are in the correct directory (folder).
 
 Make directory - the command below will make a new directory called "genome_assembly". Note: its pretty useful when using command line bioinformatics to avoid creating folders or files without spaces in the name.
-
 ```bash
 mkdir genome_assembly
 ```
@@ -63,7 +60,7 @@ pwd
 
 ### Downloading data
 
-We are now going to play around with files. We have a uploaded a range of file types to the the website GitHub. To download the data to the computer you type the following code into the command line.
+We are now going to play around with files. We have a uploaded a range of file types to the the website github. To download the data to the computer you type the following code into the command line.
 
 ```bash
 git clone https://github.com/ChristophePatterson/My-first-Genome.git
@@ -86,8 +83,6 @@ head TREASURE_ISLAND.txt
 tail TREASURE_ISLAND.txt
 ```
 
->[!info] To avoid spelling mistakes and to save time, start typing TR and then hit the 'Tab' key. This is known as a tab complete and is VERY useful when using the command line.
-
 The number of lines printed out can be altered by changing the code to include `-n`. The following line of code will print out the first 30 lines of the text file.
 
 ```bash
@@ -96,7 +91,7 @@ head -n 30 TREASURE_ISLAND.txt
 
 >[!faq] Can you change the `tail` command so that it prints out the final 40 lines of the book?
 
-We can also find out information about a text file by using the `wc` command. You can find out how many lines of text are within a text file using `wc -l` command. Note that's a lowercase L for *Laura*, not a number one.
+We can also find out information about a text file by using the `wc` command. You can find out how many lines of text are within a text file using `wc -l` command. 
 
 ```bash
 wc -l TREASURE_ISLAND.txt
@@ -122,7 +117,6 @@ grep 'Jim' TREASURE_ISLAND.txt | wc -l
 ```
 
 >[!faq] There are a number of other charaters in the book, Treasure Island, "Long John", "Ben", "Trelawney", and "Flint". Can you find out how many times each is mentioned?
-
 # Bioinformatics
 
 We are now going to move on to working with DNA data. Because DNA can be simplified down into the letters A, C, T or G, corresponding to each type of nucleotide, DNA is normally stored as a text file. 
@@ -142,7 +136,7 @@ Here is a typical example.
 GGTCAACAAATCATAAAGATATTGGCACTTTATATTTTATTTTTGGAGCTTGAGCTGGTATGGTAGGATCTTCACTTAGACTAGTTATTCGAGCCGAACTAGGCCARCCCGGCAGTTTAATTGGAGATGACCAAATCTACAACGTAGTTGTCACAGCCCATGCTTTTGTAATAATTTTTTTCATRGTAATACCTATTATAATTGGTGGKTTTGGTAATTGATTAGTTCCTTTAATATTAGGAGCYCCGGATATAGCTTTCCCACGAATAAACAACATAAGATTCTGATTACTRCCCCCGTCTCTCACTTTATTATTAATAAGAGGAATGGTTGAAAGAGGTGTCGGAACAGGATGAACTGTTTACCCTCCYYTGTCTGCTGCWATTGCCCACGCGGGTGCTTCGGTYGATCTGGGTATTTTTTCTTTACACTTAGCAGGAGTGTCCTCAATCTTAGGCGCCATCAATTTTATAACCACAGTGATCAATATACGGCCCCGTGGKATAAGAATAGACCGAATACCTTTATTCGTGTGRTCTATYTTTATTACCACTATTTTACTTTTATTRTCCCTACCTGTTTTAGCAGGYGCCATTACCATATTATTAACAGACCGAAACTTAAATACTTCTTTCTTTGACCCRGCTGGTGGAGGRGA-CCCTGTTTTATATCAACATTTATTTTGATTTTTTGGTCACCC
 ```
 
-We have provided you with a FASTA sequence data file. You can view it using the `head` or `cat` command.
+We have have provided you with a FASTA sequence data file. You can view it using the `head` or `cat` command.
 
 FASTQ files
 
@@ -159,38 +153,40 @@ cSFRTWRR+L?:INRNbBddZYBOSRXE_ASKaSH_5FLR@T8HV1R1XD@T4CY9HF=HbH*=\E%1UXRYRRVSX8
 
 The first line contains the sequence identifier, in this case it corresponds to the name of a sequencing machine and then the specific sequencing run used (dont worry about that too much). The next line contains the DNA sequence. The third line always contains a "+". The forth line displays the encoded quality information. Each symbol corresponds to a numerical quality score from 0 to 93. Zero is complete rubbish we have no idea what that base could be really. 93 is great we are very confident that individual base has been called correctly.
 
-The quality information is not provided as numbers so that each symbol on the forth line corresponds to the same base on the second. For instance the first base has been called as an "`A`" and has a quality score of "`c`". "`c`" is the code for "`66`". The final base in this sequence was called as a "`G`" and has a quality score of "`8`" which is code for "`23`".
+The quality information is not provided as numbers so that each symbol on the forth line corresponds the the same base on the second. For instance the first base has been called as an "`A`" and has a quality score of "`c`". "`c`" is the code for "`66`". The final base in this sequence was called as a "`G`" and has a quality score of "`8`" which is code for "`23`".
 
 > [!faq] Task
-> We have provided you with some sequence data. Use the `head` command to view the FASTQ directory. Can you spot each of the four components of the fastq file?
+> We have provided you with some sequence data. You downloaded them earlier, fasta files will end in ".fasta". Fastq files will end in ".fastq". Use the `head` command to view the FASTQ directory. Can you spot each of the four components of the fastq file?
 
 
-# Downloading software 
+## SLURM queueing system
+**S**imple **L**inux **U**tility for **R**esource **M**anagement
+Supercomputers are almost always shared between a lot of people. Even though Hamilton 8 is a highly powerful computer, the resources are not infinite! Therefore it is important that resources are shared fairly between all users.
 
-Today we are using two pieces of bioinformatics software, the first is a genome assembler called Hifiasm and the other is for assessing genome assemblies called Quast.
+To complete tasks on Hamilton 8 you have to submit your code as a "job" using the SLURM queuing system. Below is an example of a SLURM script.
 
-First make sure you're in the `genome_assembly` directory, `cd ..` to move you up a level and you can check which directory you're in by using `pwd` print working directory.
+```
+#!/bin/bash
 
-It's also good practice to use list to check you're in the right place
-```bash
-ls
+# Request resources:
+#SBATCH -c 1                # 1 CPU core
+#SBATCH --mem=1G            # memory required, up to 250G on standard nodes
+#SBATCH --gres=tmp:1G       # temporary disk space  ($TMPDIR), up to 400G
+#SBATCH -t 01:00:00         # time limit for job (format:  days-hours:minutes:seconds)
+#SBATCH --mail-user=<EMAIL>          # Email address to sent status report
+#SBATCH --mail-type=BEGIN,END,FAIL   # Types of status update to email
+#SBATCH -p shared          # Designated queue for job (defaults to shared)
 ```
 
-Then use the `git clone` command to download the software from Github
-```bash
-git clone https://github.com/chhylp123/hifiasm
+For this practical we have provided suitable SLURM scripts for you, but if you do go onto working on Hamilton 8 yourself (or any other supercomputer that utilises SLURM) it is worth experimenting with how many resources you need. Jobs will fail if you do not ask for enough computational resources, however, if you ask for a lot of resources you will spend longer in the queue. Often, increasing the number of cores will make your job run faster.
+
+Nano is a Linux text editor. The below command will produce a new text file called "hifiasm_name.q" and then open it in Nano. If there is already a file called "hifiasm_name.q" in the current directory then Nano will open that file.
+```
+nano hifiasm_name.q
 ```
 
-Change into the Hifiasm directory and unpack the software so it's ready to use. You can do this on a single line by typing in the following code. Afterwards use `cd ..` to move back into the `genome_assembly` directory.
-```bash
-cd hifiasm && make
-```
-
-******************************************************
-
+To close and save file you press `control + o` to write the file. You press `control + x` to exit out of nano.
 # Genome construction
-
-We are going to go through some of the stages of genome assembly, assessment, and annotation. Due to the large computational tasks that genome assembly involves we have reduced the scope of the data we are using. The process is the same but the output will differ slightly from that of a whole genome assembly. A typical genome assembly can task a few hours to a few days to complete.
 
 We are now going to construct our first genome. In the interest of time we are going to be assembling a small section of the genome of the rubyspot damselfly, *Hetaerina titia*, specifically this female *H titia*.
 
@@ -199,31 +195,62 @@ We are now going to construct our first genome. In the interest of time we are g
 To construct our first genome we are going to use the programme [*Hifiasm*](https://hifiasm.readthedocs.io/en/latest/). The code to use Hifisam is surprisingly simple. 
 
 ```bash
-hifiasm/hifiasm -o <OUTPUT_FILE_NAME> -t <NUM OF THREADS> </path/to/sequence_data.fastq>
+hifiasm -o <OUTPUT_FILE_NAME> -t <NUMBER_OF_CORES> /path/to/sequence_data.fastq
 ```
 
-Change each of the section in the code to the required input and output files You do not need to include the surrounding "<" and ">" marks. The input file is called `gbk.HiFiMapped.bam.fasta`. You can specify a file that is not in your current working directory by typing out the full path to the file (`My-first-Genome/gbk.HiFiMapped.bam.fasta`). You should select 1 core. You can call the output filename whatever you like, but remember what it is!
+Remember we are using the SLURM mangement system so we need to create a slurm script first. This should look like the following. Hifiasm has already been installed on hamilton and you can activate it by using `module load`.
 
-This will likely take a few minutes to run.
-
-That's it! You've run your first genome assembly. 
-
-Hifiasm does not output a FASTA file. We can convert the `gfa` file created by Hifiasm to a FASTA file by using the following code. You will need to make sure you use the correct file name based of what you decided the output file was going to called. 
 
 ```bash
-awk '/^S/{print ">"$2;print $3}' My-genome-name.bp.p_ctg.gfa > My-genome-name.p_ctg.fasta
+#!/bin/bash
+
+#SBATCH -c 8  # The number of cores needed
+#SBATCH --mem=200G            # memory required
+#SBATCH --gres=tmp:300G       # $TMPDIR space required on each compute node
+#SBATCH --time=00:15:00         # time limit in format dd-hh:mm:ss
+#SBATCH -p test
+
+# Loading modules
+module load bioinformatics
+module load hifiasm
+
+# Run Hifiasm
+hifiasm -o H_titia.asm -t 8 gbk.HiFiMapped.bam.fasta
 ```
 
-You can view the draft genome by using the code `cat /path/to/assembly/`.  This likely prints out a LOT of ATCGs, to reduce the output we can use the `head` command again.
+Once you have prepared your script, send it to the queue so that you code runs by using the sbatch command
 
-We can now find out some information about the assembled genome. Remember that each sequence of DNA in a FASTA format starts with a ">". We can use the `grep` and `wc` command from earlier to count the number of times ">" appears in input and output text file file. Try to compare how many sequences were in the raw sequence data and how many sequences are in the genome assembly.
+```bash
+sbatch my_SLURM_script.q
+```
 
-**********************************************
-# Bonus tasks 
+You can check the status of your job by either using `sacct` or `squeue`
 
-## Genome assessment
+```bash
+sacct
+```
 
-We are now going to use a tool called [Quast](https://quast.sourceforge.net/). Quast is used to assess the quality of a genome assembly through the calculation of statistics such as N50 and L50.
+```bash
+squeue -u [username]
+```
+
+This will likely take a few mins to run.
+
+That's it! You've run your first genome assembly.
+
+Hifiasm does not output a FASTA file. We can convert the `gfa` file created by Hifiasm to a FASTA file by using the following code. You will need to make sure you use the correct file name based of what you decided the output file was going to called.
+
+```shell
+awk '/^S/{print ">"$2;print $3}' H_titia.asm.bp.p_ctg.gfa > H_titia.asm.p_ctg.fasta
+```
+
+You can view the draft genome by using the code `cat /path/to/assembly/`. This likely prints out a LOT of ATCGs, to reduce the output we can use the `head` command again.
+
+We can now find out some information about the assembled genome. Remember that each sequence of DNA in a FASTA format starts with a ">". We can use the `grep` and `wc` command from earlier to count the number of times ">" appears in input and output text file file. Try to compare how many sequences were in the raw sequence data and how many sequences are in the genome assembly.
+
+# Bonus task: Genome assessment
+
+We are now going to use a tools called [Quast](https://quast.sourceforge.net/). Quast is used to asses the quality of a genome assembly through the calculation of statisitcs such as N50 and L50.
 
 We have uploaded three draft genome from three different organisms. All three can be found and download from NCBI (National Center for Biotechnology Information).
 
@@ -233,19 +260,42 @@ We have uploaded three draft genome from three different organisms. All three ca
 
 ![[genome_pictures.png]]
 
-We are going to run Quast assessments on all of these genome assemblies. The assemblies are stored as `.gz` files which means they are compressed to save memory. For instance, if we had a run of twelve A's (`AAAAAAAAAAAA`) we could store it as `AAAAAAAAAAAA` (12 bytes) but alternatively we could compress this information into `Ax12` (4 bytes) This isn't how .gz files compress data but does show that a typical genome can be easily compressed into a smaller file.
+We are going to run Quast assessments on all of these genome assemblies. The assemblies are stored as `.gz` files which means they are compressed to save memory. For instance, if we had a run of twelve A's (`AAAAAAAAAAAA`) we could store it as 12 A (12 bytes) but alternatively we could compress this information into `Ax12` (4 bytes) This isn't how .gz files compress data but does show that a typical genome can be easily compressed into a smaller file.
 
-Today we are going to use the web version of Quast. To access this we use `firefox` followed by the link to Web Quast tool.
+The following scripts runs quast on the three genomes
+
+```bash
+#!/bin/bash
+
+#SBATCH -c 6 
+#SBATCH --mem=30G            # memory required
+#SBATCH --gres=tmp:30G       # $TMPDIR space required 
+#SBATCH --time=00:15:00         # time limit in format dd-hh:mm:ss
+#SBATCH -p test
+
+# Commands to execute start here
+
+module load bioinformatics
+module load quast/5.2.0
+
+# We need to move into a new directory
+cd Bonus_tasks
+
+quast.py \
+	Bombus_terrertris.fasta.gz \
+	Genlisea_aurea.fasta.gz \
+	Sciurus_vulgaris.fasta.gz \
+	-o Quast \
+	 -t 6  \
+	--eukaryote --large 
 
 ```
-firefox https://www.ccb.uni-saarland.de/quast/
+
+You can then view the outputed report by opening the `report.txt` file in Hamilton or by downloading the `report.html` on to you personal computer (if you are using winSCP).
+
 ```
-
-![[webquast.png]]
-The following scripts runs Quast on the three genomes. Because this code is quite long we are going to use `\` to allow us to type it out over multiple lines.
-
-Click on 'select files' and open one (or all three) of the genomes within the `Draft_Genomes` folder. All of these genomes are Eukaryotic so remember to select 'Eukaryotic'. Then, click 'Evaluate'. This will take a few minutes.
+ls Bonus_tasks/Quast/
+cat Bonus_tasks/Quast/report.txt
+```
 
 Take you time to look over the report. What information can you extract?
-
-**************************************************************
